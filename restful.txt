@@ -1,0 +1,26 @@
+composer require laravel/homestead
+vendor//bin//homestead make
+
+//StartSample
+ip: 192.168.10.15
+memory: 512
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: 'C:\xampp\htdocs\MyProject\restfulApi'
+        to: /home/vagrant/code
+sites:
+    -
+        map: restfulApi.dev
+        to: /home/vagrant/code/public
+databases:
+    - homestead
+name: restfulapi
+hostname: restfulapi
+//End sample
+
+ ssh-keygen -t rsa -b 4096
