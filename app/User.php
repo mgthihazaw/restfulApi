@@ -31,6 +31,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'verification_token',
+        
 
     ];
 
@@ -41,6 +42,9 @@ class User extends Authenticatable
     
     public function isAdmin(){
         return $this->admin == USER::ADMIN_USER;
+    }
+    public function isVerified(){
+        return USER::VERIFIED_USER;
     }
     public static function generateVerificationCode(){
         return str_random(40);
