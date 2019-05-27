@@ -54,13 +54,28 @@ $factory->define(Product::class, function (Faker $faker) {
     ];
 });
 $factory->define(Transaction::class, function (Faker $faker) {
-    $seller=Seller::has('products')->get()->random();
-    $buyer = User::all()->except($seller->id)->random();
+    // $seller=Seller::has('products')->get()->random();
+    // $buyer = User::all()->except($seller->id)->random();
+    // return [
+        
+    //     'quantity'=> $faker->numberBetween(1,10),
+    //     'buyer_id' =>$buyer->id,
+    //     'product_id' => $seller->products->random()->id,
+        
+        
+    // ];
+    $sellers=Seller::has('products')->get()->random();
+    $exceptSellers=Seller::has('products')->pluck('id');
+    $users = User::all();
+    foreach($exceptSellers as $seller){
+         unset($users[$seller-1]);
+    }
+    $buyer = $users->random();
     return [
         
         'quantity'=> $faker->numberBetween(1,10),
         'buyer_id' =>$buyer->id,
-        'product_id' => $seller->products->random()->id,
+        'product_id' => $sellers->products->random()->id,
         
         
     ];

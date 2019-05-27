@@ -35,6 +35,14 @@ class User extends Authenticatable
 
     ];
 
+    //This is  mutator
+    // public function setNameAttribute($name){
+    //     $this->attributes['name'] = $name;
+    // }
+    // public function getNameAttribute($name){
+    //     $this->attributes['name'] =$name;
+    // }
+
     
     protected $casts = [
         'email_verified_at' => 'datetime',

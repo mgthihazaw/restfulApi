@@ -36,10 +36,10 @@ class DatabaseSeeder extends Seeder
         DB::table('category_product')->delete();
         
 
-        $uq=200;
+        $uq=400;
         $cq=30;
         $pq=100;
-        $tq= 1000;
+        $tq= 400;
 
         factory(User::class,$uq)->create();
         factory(Category::class,$cq)->create();

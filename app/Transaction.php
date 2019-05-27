@@ -19,4 +19,5 @@ class Transaction extends Model
     public function buyer(){
         return $this->belongsTo(Buyer::class);
     }
+    
 }
