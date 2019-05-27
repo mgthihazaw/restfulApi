@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\User;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     
     public function index()
     {
         $users=User::all();
-        return response()->json(['data' => $users],200);
+        return $this->showAll($users);
     }
     
     public function store(Request $request)
@@ -30,7 +30,7 @@ class UserController extends Controller
         $data['admin'] = User::REGULAR_USER;
 
         $user=User::create($data);
-        return response()->json(['data' => $user],201);
+        return $this->showOne( $user,201);
 
 
     }
@@ -38,7 +38,7 @@ class UserController extends Controller
    
     public function show(User $user)
     {
-        return response()->json(['data' => $user],200);
+        return $this->showOne($user,201);
     }
 
     public function update(Request $request, User $user)
@@ -64,16 +64,16 @@ class UserController extends Controller
         }
         if($request->has('admin')){
             if(!$user->isVerified()){
-                return response()->json(['error' => 'Only verified user can modify the admin field','code'=>409],409);
+                return $this->errResponse('Only verified user can modify the admin field',409);
             }
             $user->admin =$request->admin;
         }
         if(!$user->isDirty()) {
-            return response()->json(['error' => 'You need to specify a different value to update','code'=>409],409);
+            return $this->errResponse('You need to specify a different value to update',422);
         }
         $user->save();
 
-        return response()->json("Successfully Update",201);
+        return $this->showOne($user,201);
     }
 
   
