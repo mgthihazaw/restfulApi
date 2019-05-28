@@ -58,7 +58,8 @@ class Handler extends ExceptionHandler
         //     return response(['error' =>"mm"],404);
         // }
         if($e instanceof NotFoundHttpException){
-            return response(['error' =>"URL does not exit {base_classname($e)}","code"=>404],404);
+            
+            return response(['error' =>"URL does not exit ","code"=>404],404);
         }
         if($e instanceof ModelNotFoundException){
             $model=class_basename($e->getModel());
