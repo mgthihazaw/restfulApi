@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\softDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,softDeletes;
+    protected $dates=['deleted_at'];
     protected $table ='users';
 
     const VERIFIED_USER ='1';

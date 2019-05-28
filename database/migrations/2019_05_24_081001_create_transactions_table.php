@@ -28,6 +28,7 @@ class CreateTransactionsTable extends Migration
                   ->on('products')
                   ->references('id')
                   ->onDelete('cascade');
+                  $table->softDeletes();
         });
     }
 
