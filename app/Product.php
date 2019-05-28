@@ -36,4 +36,5 @@ class Product extends Model
     public function transactions(){
         return $this->hasMany(Transaction::class);
     }
+    protected $hidden = ['pivot','deleted_at'];
 }

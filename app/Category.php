@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\softDeletes;
 class Category extends Model
 {
     use softDeletes;
+    
     protected $date=['deleted_at'];
     protected $fillable=[
         'name',
@@ -18,4 +19,5 @@ class Category extends Model
     public function products(){
         return $this->belongsToMany(Product::class);
     }
+    
 }

@@ -18,22 +18,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     { 
-        // DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        // User::truncate();
-        // Category::truncate();
-        // Product::truncate();
-        // Transaction::truncate();
-        // DB::table('category_product')->truncate();
-        // DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::table('category_product')->truncate();
+        Transaction::truncate();
+        Product::truncate();
+        User::truncate();
+        Category::truncate();
+        
+        
+        
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
         /* ABOVE OR BELOW is the same */
         
-        DB::table('users')->delete();
-        DB::table('categories')->delete();
-        DB::table('products')->delete();
-        DB::table('transactions')->delete();
+        // DB::table('users')->delete();
+        // DB::table('categories')->delete();
+        // DB::table('products')->delete();
+        // DB::table('transactions')->delete();
 
-        DB::table('category_product')->delete();
+        // DB::table('category_product')->delete();
         
 
         $uq=400;
