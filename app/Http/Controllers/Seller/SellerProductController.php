@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\User;
 use App\Product;
+use Illuminate\Support\Facades\Storage;
 
 class SellerProductController extends ApiController
 {
@@ -35,7 +36,7 @@ class SellerProductController extends ApiController
         $data=$request->all();
 
         $data['status'] =Product::UNAVAIABLE_PRODUCT;
-        $data['image'] ='1.jpg';
+        $data['image'] =$request->image->store('');
         $data['seller_id'] =$seller->id;
 
         $product=Product::create($data);
@@ -79,7 +80,7 @@ class SellerProductController extends ApiController
             'name' => 'unique:categories',
             'status' => 'in:' . Product::AVAIABLE_PRODUCT .','.Product::UNAVAIABLE_PRODUCT,
             'quantity' =>'integer|min:1',
-            'image' => 'image'
+            
            
         ];
         $this->validate($request,$rules);
@@ -88,7 +89,8 @@ class SellerProductController extends ApiController
         $product->fill($request->only([
             'name',
             'description',
-            'quantity'
+            'quantity',
+            
         ]));
         if($request->has('status')){
             $product->status = $request->status;
@@ -98,7 +100,13 @@ class SellerProductController extends ApiController
             }
        
         }
-        if($product->isClean()){
+        // dd($request->image);
+        
+        if($request->image){
+            Storage::delete($product->image);
+            $product->image = $request->image->store('');
+        }
+        if(!$product->isDirty()){
             return $this->errResponse('An active product must have adifferent value to update',422);
         }
         $product->save();
@@ -114,6 +122,7 @@ class SellerProductController extends ApiController
     public function destroy(Seller $seller,Product $product)
     {
         $this->checkSeller($seller ,$product);
+        Storage::delete($product->image);
         $product->delete();
         return response()->json("Delete Successful",402);
     }
