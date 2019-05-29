@@ -58,7 +58,7 @@ class User extends Authenticatable
         return $this->admin == USER::ADMIN_USER;
     }
     public function isVerified(){
-        return USER::VERIFIED_USER;
+        return $this->verified==USER::VERIFIED_USER;
     }
     public static function generateVerificationCode(){
         return str_random(40);

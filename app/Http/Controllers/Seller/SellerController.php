@@ -21,6 +21,8 @@ class SellerController extends ApiController
 
     public function show(Seller $seller)
     {
+        
+        // return User::find($id);
         return $this->showOne($seller,200);
     }
 
