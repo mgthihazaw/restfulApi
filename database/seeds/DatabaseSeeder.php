@@ -25,7 +25,10 @@ class DatabaseSeeder extends Seeder
         User::truncate();
         Category::truncate();
         
-        
+        User::flushEventListeners();
+        Category::flushEventListeners();
+        Product::flushEventListeners();
+        Transaction::flushEventListeners();
         
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
