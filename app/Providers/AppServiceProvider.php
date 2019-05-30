@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
                 retry(5,function() use ($user){
                 Mail::to($user)->send(new UserEmailChanged($user));
             },100);
+            
             }
             
        });

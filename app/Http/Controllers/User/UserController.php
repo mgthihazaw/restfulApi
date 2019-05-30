@@ -45,13 +45,13 @@ class UserController extends ApiController
 
     public function update(Request $request, User $user)
     {
-        // $rules = [
+        $rules = [
             
-        //     'email' => 'email|unique:users',
-        //     'password' => 'min:6|confirmed',
-        //     'admin'  => 'in' . User::ADMIN_USER . ',' . User::REGULAR_USER,
-        // ];
-        // $this->validate($request,$rules);
+            'email' => 'email|unique:users',
+            'password' => 'min:6|confirmed',
+            'admin'  => 'in' . User::ADMIN_USER . ',' . User::REGULAR_USER,
+        ];
+        $this->validate($request,$rules);
         
         if($request->has('name')){
             $user->name = $request->name;
@@ -71,7 +71,7 @@ class UserController extends ApiController
             $user->admin =$request->admin;
         }
         if(!$user->isDirty()) {
-            return $this->errResponse('You need to specify a different value to update',422);
+            return $this->errResponse('You need to specify a different value to update');
         }
         $user->save();
 
